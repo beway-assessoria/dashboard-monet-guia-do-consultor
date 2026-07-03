@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Script Comercial Monet — Guia do Consultor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C57A;
+    --gold-dim: #8C6E2F;
+    --dark: #0D0D0D;
+    --dark-2: #141414;
+    --dark-3: #1C1C1C;
+    --dark-4: #242424;
+    --dark-5: #2E2E2E;
+    --text: #E8E0D0;
+    --text-muted: #9A9080;
+    --text-dim: #6A6055;
+    --red: #C0392B;
+    --green: #27AE60;
+    --blue: #2471A3;
+    --purple: #7D3C98;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--dark-2);
+    border-bottom: 1px solid var(--dark-5);
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 60px;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .logo span {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 13px;
+    margin-left: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  /* TABS */
+  nav {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+  }
+
+  nav::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+  }
+
+  .tab:hover { color: var(--text); background: var(--dark-4); }
+
+  .tab.active {
+    color: var(--gold);
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--dark-5);
+    padding-bottom: 20px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--dark-2);
+    border: 1px solid var(--dark-5);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title .icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(201, 168, 76, 0.15);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* FALA BOX */
+  .fala {
+    background: var(--dark-3);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-style: italic;
+    color: var(--text);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  .fala strong { color: var(--gold-light); font-style: normal; }
+
+  .fala-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* INSTRUCAO */
+  .instrucao {
+    background: rgba(201, 168, 76, 0.05);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+
+  .instrucao strong { color: var(--gold); }
+
+  /* ALERT */
+  .alert {
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 13.5px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .alert.warning { background: rgba(192, 57, 43, 0.1); border: 1px solid rgba(192, 57, 43, 0.25); color: #E8B4AE; }
+  .alert.success { background: rgba(39, 174, 96, 0.1); border: 1px solid rgba(39, 174, 96, 0.25); color: #A8E6C3; }
+  .alert.info { background: rgba(36, 113, 163, 0.1); border: 1px solid rgba(36, 113, 163, 0.25); color: #AED6F1; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  @media (max-width: 700px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* DISC CARDS */
+  .disc-card {
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid;
+  }
+
+  .disc-D { background: rgba(192, 57, 43, 0.08); border-color: rgba(192, 57, 43, 0.3); }
+  .disc-I { background: rgba(241, 196, 15, 0.08); border-color: rgba(241, 196, 15, 0.3); }
+  .disc-S { background: rgba(39, 174, 96, 0.08); border-color: rgba(39, 174, 96, 0.3); }
+  .disc-C { background: rgba(36, 113, 163, 0.08); border-color: rgba(36, 113, 163, 0.3); }
+
+  .disc-badge {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 36px;
+    margin-bottom: 12px;
+  }
+
+  .badge-D { background: rgba(192, 57, 43, 0.25); color: #E74C3C; }
+  .badge-I { background: rgba(241, 196, 15, 0.25); color: #F1C40F; }
+  .badge-S { background: rgba(39, 174, 96, 0.25); color: #2ECC71; }
+  .badge-C { background: rgba(36, 113, 163, 0.25); color: #3498DB; }
+
+  .disc-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .disc-name-D { color: #E74C3C; }
+  .disc-name-I { color: #F1C40F; }
+  .disc-name-S { color: #2ECC71; }
+  .disc-name-C { color: #3498DB; }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+
+  .tag {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 500;
+  }
+
+  .tag-D { background: rgba(192, 57, 43, 0.15); color: #E74C3C; }
+  .tag-I { background: rgba(241, 196, 15, 0.15); color: #C9A84C; }
+  .tag-S { background: rgba(39, 174, 96, 0.15); color: #2ECC71; }
+  .tag-C { background: rgba(36, 113, 163, 0.15); color: #3498DB; }
+
+  /* STEPS */
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(201, 168, 76, 0.15);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-body { flex: 1; }
+
+  .step-title {
+    font-weight: 600;
+    color: var(--gold-light);
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .step-body p { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin: 16px 0;
+  }
+
+  .compare-table th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--dark-5);
+  }
+
+  .compare-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--dark-4);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  .compare-table .col-bad { color: #E74C3C; }
+  .compare-table .col-good { color: #2ECC71; }
+  .compare-table .col-label { color: var(--text); font-weight: 500; }
+
+  /* PILL */
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .pill-bad { background: rgba(192, 57, 43, 0.15); color: #E74C3C; }
+  .pill-good { background: rgba(39, 174, 96, 0.15); color: #2ECC71; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 28px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--dark-5);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--dark);
+  }
+
+  .timeline-time {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .timeline-desc { font-size: 13px; color: var(--text-muted); }
+
+  /* POCKET CARD */
+  .pocket-card {
+    background: var(--dark-3);
+    border: 1px solid var(--gold-dim);
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pocket-card::before {
+    content: 'CARD DE BOLSO';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--gold-dim);
+  }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+
+  .checklist li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--dark-4);
+    font-size: 13.5px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before { content: '○'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--dark-5);
+    margin: 28px 0;
+  }
+
+  /* PHASE HEADER */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--dark-5);
+  }
+
+  .phase-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: rgba(201, 168, 76, 0.2);
+    line-height: 1;
+  }
+
+  .phase-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .phase-goal {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* OBJECTION */
+  .objection {
+    background: var(--dark-3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .obj-trigger {
+    background: rgba(192, 57, 43, 0.08);
+    border-left: 3px solid rgba(192, 57, 43, 0.4);
+    padding: 14px 18px;
+    font-size: 14px;
+    font-style: italic;
+    color: #E8B4AE;
+  }
+
+  .obj-response {
+    padding: 14px 18px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .obj-response strong { color: var(--gold-light); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">MONET <span>Guia do Consultor</span></div>
+    <nav>
+      <button class="tab active" onclick="showPage('disc')">🎯 DISC</button>
+      <button class="tab" onclick="showPage('abordagem')">🚪 Abordagem</button>
+      <button class="tab" onclick="showPage('spin')">🔍 Diagnóstico SPIN</button>
+      <button class="tab" onclick="showPage('solucao')">💡 Solução</button>
+      <button class="tab" onclick="showPage('prazo')">📊 30/60/90</button>
+      <button class="tab" onclick="showPage('objecoes')">🛡️ Objeções</button>
+      <button class="tab" onclick="showPage('fechamento')">🤝 Fechamento</button>
+      <button class="tab" onclick="showPage('onboarding')">🚀 Onboarding</button>
+      <button class="tab" onclick="showPage('credito')">💰 Linha de Crédito</button>
+    </nav>
+  </div>
+</header>
+
+<div class="content">
+
+  <!-- ===================== DISC ===================== -->
+  <div class="page active" id="page-disc">
+    <div class="section-title">Leitura DISC Rápida</div>
+    <div class="section-sub">Identifique o perfil do lojista nos primeiros 60 segundos. Ajuste sua linguagem antes de falar sobre produto.</div>
+
+    <div class="alert info">
+      <div class="alert-icon">ℹ️</div>
+      <div><strong>Como usar:</strong> Observe antes de falar. Postura, ritmo, tom de voz e ambiente da loja já entregam o perfil. Lojista arredondado = S. Decoração detalhada, planilhas na mesa = C. Agitado, falando rápido = I. Seco, direto, sem tempo = D.</div>
+    </div>
+
+    <div class="grid-4" style="margin-top:24px;">
+
+      <div class="disc-card disc-D">
+        <div class="disc-badge badge-D">D</div>
+        <div class="disc-name disc-name-D">DOMINANTE</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:10px;">Decidido · Direto · Impaciente</div>
+        <div class="tags">
+          <span class="tag tag-D">Sem tempo</span>
+          <span class="tag tag-D">Quer resultado</span>
+          <span class="tag tag-D">Controla tudo</span>
+        </div>
+        <div style="height:1px;background:rgba(192,57,43,0.2);margin:12px 0;"></div>
+        <div style="font-size:12.5px;color:var(--text-muted);">
+          <strong style="color:#E74C3C;">Sinais:</strong><br>
+          Tom seco, fala pouco, loja organizada por resultado (estoque visível, preços na frente). Toma decisão rápido — pra bem ou pra mal.
+        </div>
+      </div>
+
+      <div class="disc-card disc-I">
+        <div class="disc-badge badge-I">I</div>
+        <div class="disc-name disc-name-I">INFLUENTE</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:10px;">Animado · Sociável · Otimista</div>
+        <div class="tags">
+          <span class="tag tag-I">Ama novidade</span>
+          <span class="tag tag-I">Fala muito</span>
+          <span class="tag tag-I">Impulsivo</span>
+        </div>
+        <div style="height:1px;background:rgba(241,196,15,0.2);margin:12px 0;"></div>
+        <div style="font-size:12.5px;color:var(--text-muted);">
+          <strong style="color:#F1C40F;">Sinais:</strong><br>
+          Te recebe com sorriso, conta histórias, loja com visual animado. Decide com emoção. Quer ser o primeiro a ter a novidade.
+        </div>
+      </div>
+
+      <div class="disc-card disc-S">
+        <div class="disc-badge badge-S">S</div>
+        <div class="disc-name disc-name-S">ESTÁVEL</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:10px;">Leal · Cauteloso · Relacional</div>
+        <div class="tags">
+          <span class="tag tag-S">Precisa de confiança</span>
+          <span class="tag tag-S">Teme mudança</span>
+          <span class="tag tag-S">Leal</span>
+        </div>
+        <div style="height:1px;background:rgba(39,174,96,0.2);margin:12px 0;"></div>
+        <div style="font-size:12.5px;color:var(--text-muted);">
+          <strong style="color:#2ECC71;">Sinais:</strong><br>
+          Educado, escuta com atenção, demora pra decidir. Loja familiar, fotos de família visíveis. Quer garantia antes de mudar.
+        </div>
+      </div>
+
+      <div class="disc-card disc-C">
+        <div class="disc-badge badge-C">C</div>
+        <div class="disc-name disc-name-C">CONFORME</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:10px;">Analítico · Preciso · Desconfiado</div>
+        <div class="tags">
+          <span class="tag tag-C">Quer dados</span>
+          <span class="tag tag-C">Compara tudo</span>
+          <span class="tag tag-C">Pesquisa antes</span>
+        </div>
+        <div style="height:1px;background:rgba(36,113,163,0.2);margin:12px 0;"></div>
+        <div style="font-size:12.5px;color:var(--text-muted);">
+          <strong style="color:#3498DB;">Sinais:</strong><br>
+          Pergunta taxa específica, quer contrato, mesa com papel. Não decide na hora. Quer entender cada detalhe antes.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Adaptação de linguagem -->
+    <div class="card-title" style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--gold);margin-bottom:20px;">Como adaptar sua linguagem por perfil</div>
+
+    <!-- D -->
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:rgba(192,57,43,0.2);color:#E74C3C;">D</div>
+        Dominante — Seja direto, entregue resultado em 30 segundos
+      </div>
+      <div class="fala">
+        <div class="fala-label">Abertura</div>
+        "Direto ao ponto: a Monet reduz o custo da sua operação e te dá crédito pra comprar mercadoria com desconto. Posso mostrar os números em 3 minutos?"
+      </div>
+      <div class="instrucao">
+        ✋ <strong>Não faça:</strong> Não enrola, não faz pergunta aberta, não pede "só um minutinho". Ele vai cortar você.
+        <br><strong>Faça:</strong> Seja curto, fale em números, deixe ele decidir rápido. Se ele disser "não tenho tempo", proponha horário específico imediato.
+      </div>
+      <div class="fala">
+        <div class="fala-label">Fecho com D</div>
+        "Resolvemos agora ou você prefere amanhã às 8h antes de abrir?"
+      </div>
+    </div>
+
+    <!-- I -->
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:rgba(241,196,15,0.2);color:#F1C40F;">I</div>
+        Influente — Crie entusiasmo, use história e visão de futuro
+      </div>
+      <div class="fala">
+        <div class="fala-label">Abertura</div>
+        "Cara, você vai amar o que a Monet fez aqui no Moda Center. Os lojistas que entraram primeiro já estão usando crédito da gente pra comprar do fornecedor com desconto — é o tipo de coisa que muda o jogo. Posso te contar como?"
+      </div>
+      <div class="instrucao">
+        ✋ <strong>Não faça:</strong> Não afogue em detalhes técnicos. Ele vai perder o foco.
+        <br><strong>Faça:</strong> Use história de outro lojista (mesmo que hipotética), crie prova social, faça ele se imaginar usando. Aproveite o entusiasmo — ele decide rápido quando está animado.
+      </div>
+      <div class="fala">
+        <div class="fala-label">Fecho com I</div>
+        "Vou ativar sua conta agora — você vai ser um dos primeiros aqui no setor. É raro ter essa vantagem assim no começo."
+      </div>
+    </div>
+
+    <!-- S -->
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:rgba(39,174,96,0.2);color:#2ECC71;">S</div>
+        Estável — Construa confiança, elimine riscos, seja humano
+      </div>
+      <div class="fala">
+        <div class="fala-label">Abertura</div>
+        "Bom dia! Tô passando nos lojistas aqui do setor pra apresentar a Monet. Não é nada que você precisa decidir agora, só quero que você conheça. Posso te explicar?"
+      </div>
+      <div class="instrucao">
+        ✋ <strong>Não faça:</strong> Não pressione. Não use urgência forçada. Ele trava.
+        <br><strong>Faça:</strong> Construa primeiro, venda depois. Mostre que você vai continuar presente. Diga que outros lojistas do mesmo setor já estão usando. Elimine o medo do risco.
+      </div>
+      <div class="fala">
+        <div class="fala-label">Fecho com S</div>
+        "Se quiser, você começa com a conta digital só pra conhecer. Sem compromisso. Eu fico disponível pra te ajudar em tudo."
+      </div>
+    </div>
+
+    <!-- C -->
+    <div class="card">
+      <div class="card-title">
+        <div class="icon" style="background:rgba(36,113,163,0.2);color:#3498DB;">C</div>
+        Conforme — Traga dados, respeite o processo, nunca pressione
+      </div>
+      <div class="fala">
+        <div class="fala-label">Abertura</div>
+        "Bom dia! Vim apresentar a Monet — somos parceiros da Fiserv, que processa mais de 6 trilhões de dólares por ano. Tenho os dados de taxa, contrato e simulação de crédito. Posso te deixar as informações?"
+      </div>
+      <div class="instrucao">
+        ✋ <strong>Não faça:</strong> Não minta, não esconda detalhe, não apresse a decisão.
+        <br><strong>Faça:</strong> Mostre que você tem tudo documentado. Se ele pedir prazo, dê um prazo real. Ofereça simulação por escrito. Volte com respostas completas — ele vai checar.
+      </div>
+      <div class="fala">
+        <div class="fala-label">Fecho com C</div>
+        "Vou te mandar uma simulação personalizada pra você analisar com calma. Posso passar na quinta pra tirar qualquer dúvida?"
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ABORDAGEM ===================== -->
+  <div class="page" id="page-abordagem">
+    <div class="section-title">Abordagem Inicial</div>
+    <div class="section-sub">Os primeiros 30 segundos determinam se você vai ter 5 minutos de atenção ou não. Quebre o padrão antes de falar sobre produto.</div>
+
+    <div class="alert warning">
+      <div class="alert-icon">⚠️</div>
+      <div><strong>Regra de ouro:</strong> O lojista do Moda Center é abordado dezenas de vezes por semana. Você não pode começar igual a todo mundo. Leia o perfil DISC antes de abrir a boca.</div>
+    </div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">01</div>
+        <div>
+          <div class="phase-title">Antes de entrar na loja</div>
+          <div class="phase-goal">Objetivo: Chegue preparado, não de surpresa</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">A</div>
+        <div class="step-body">
+          <div class="step-title">Observe o ambiente (10 segundos)</div>
+          <p>Loja organizada e séria → provável D ou C. Loja animada com vitrine elaborada → I. Loja simples, atendente sorrindo → S. Planilhas ou controles na mesa → C.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">B</div>
+        <div class="step-body">
+          <div class="step-title">Espere o momento certo</div>
+          <p>Se o lojista estiver com cliente, aguarde. Abordar na hora errada queima a entrada. Vale esperar 2 minutos e ser bem recebido do que entrar na hora errada e ser mandado embora.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">C</div>
+        <div class="step-body">
+          <div class="step-title">Postura ao entrar</div>
+          <p>Aperto de mão firme, nome claro, empresa no início — não no fim. "Sou [nome], sou consultor da Monet." Não diga "posso te roubar um minuto?" — isso coloca você em posição de pedinte.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">02</div>
+        <div>
+          <div class="phase-title">Versão A — Abertura com Autoridade</div>
+          <div class="phase-goal">Melhor para: D e C</div>
+        </div>
+      </div>
+      <div class="fala">
+        "Bom dia! Sou [nome], consultor da Monet aqui no Moda Center. A gente é parceira da Fiserv — maior processadora de pagamentos do mundo, mais de 6 trilhões de dólares por ano. Eu vim trazer uma solução que a maioria dos lojistas daqui ainda não conhece. Posso te mostrar em 5 minutos?"
+      </div>
+      <div class="instrucao">
+        <strong>Por que funciona:</strong> Ancora em credibilidade antes de pedir atenção. O lojista D e C respondem a autoridade e escala — "maior do mundo" ativa o filtro de credibilidade deles.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">03</div>
+        <div>
+          <div class="phase-title">Versão B — Abertura com Curiosidade (SPIN)</div>
+          <div class="phase-goal">Melhor para: I e S</div>
+        </div>
+      </div>
+      <div class="fala">
+        "Bom dia! Me fala uma coisa rápida — hoje, quando seu cliente passa o cartão aqui, você sabe exatamente quanto você perde de taxa e quando esse dinheiro cai na sua conta?"
+      </div>
+      <div class="instrucao">
+        <strong>Deixa responder.</strong> Ele vai dizer "mais ou menos" ou "não sei direito". Aí você continua:
+      </div>
+      <div class="fala">
+        "É exatamente sobre isso que eu vim falar. Tem uma forma de você ter controle total disso e ainda usar capital pra crescer sem precisar antecipar. Me dá 5 minutos?"
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">04</div>
+        <div>
+          <div class="phase-title">Versão C — Plante a Semente (Lojista Ocupado)</div>
+          <div class="phase-goal">Quando ele está atendendo ou com pressa</div>
+        </div>
+      </div>
+      <div class="fala">
+        "Oi, não vou tomar seu tempo agora. Só quero deixar uma informação: a Monet chegou aqui com conta digital e crédito pra lojista — mas não é empréstimo. É capital de giro que você usa pra comprar do fornecedor à vista e pagar no prazo. Quando você tiver uns minutos, a conversa vale. Posso voltar amanhã de manhã?"
+      </div>
+      <div class="instrucao">
+        <strong>Plante e saia.</strong> Muitas vezes o lojista te chama de volta quando você está indo embora. Deixe um cartão.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SPIN ===================== -->
+  <div class="page" id="page-spin">
+    <div class="section-title">Diagnóstico SPIN</div>
+    <div class="section-sub">Nunca apresente a solução antes de criar consciência do problema. O lojista precisa sentir a dor antes de querer o remédio.</div>
+
+    <div class="alert success">
+      <div class="alert-icon">✅</div>
+      <div><strong>Regra SPIN:</strong> Quem pergunta, lidera. Quem apresenta antes de perguntar, implora. Faça o lojista falar 70% do tempo nessa fase.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">S</div> Situação — Entenda o contexto</div>
+      <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:14px;">Colete fatos sem julgamento. Máximo 3 perguntas — não vire interrogatório.</p>
+      <div class="fala">"Hoje você aceita débito, crédito e Pix aqui na loja?"</div>
+      <div class="fala">"Você usa uma máquina só ou tem mais de uma?"</div>
+      <div class="fala">"Quando você vende parcelado, em quanto tempo cai o dinheiro pra você?"</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">P</div> Problema — Revele a dor</div>
+      <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:14px;">Agora que você sabe o contexto, faça perguntas que revelem o que está errado.</p>
+      <div class="fala">"Você já perdeu venda porque a máquina travou ou ficou sem sinal?"</div>
+      <div class="fala">"Quando você precisa comprar mercadoria, você consegue pagar à vista pro fornecedor?"</div>
+      <div class="fala">"Quando paga parcelado com o fornecedor, você consegue o mesmo preço de quem paga à vista?"</div>
+      <div class="instrucao">
+        <strong>💡 Essa última é poderosa.</strong> A resposta quase sempre é "não". Quando ele admite que perde desconto por não ter caixa, você tem a porta aberta pra apresentar o crédito.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">I</div> Implicação — Amplie o impacto</div>
+      <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:14px;">Faça o lojista calcular mentalmente quanto o problema está custando.</p>
+      <div class="fala">"Se você consegue 8% de desconto pagando à vista e compra R$30 mil por mês, você está deixando R$2.400 por mês na mesa. Você sabia disso?"</div>
+      <div class="fala">"E quando a máquina trava num sábado cheio — você sabe quanto você perde nesse dia?"</div>
+      <div class="fala">"Você está antecipando tudo pra receber no D+1? Quanto você paga de taxa por antecipação todo mês?"</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">N</div> Necessidade — Ele mesmo pede a solução</div>
+      <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:14px;">Conduza para que o lojista verbalize a necessidade. Quando ele diz, ele compra. Quando você diz, ele duvida.</p>
+      <div class="fala">"Se você pudesse comprar sempre à vista do fornecedor, com desconto, mas pagar no mesmo prazo que você já pagaria parcelado — isso resolveria um problema real aqui?"</div>
+      <div class="fala">"Se você tivesse uma máquina que nunca trava e uma conta que deposita no prazo certo, sem pagar taxa de antecipação — faz sentido pra você?"</div>
+      <div class="fala">"O que precisaria mudar aqui pra sua operação rodar com mais folga de caixa?"</div>
+    </div>
+  </div>
+
+  <!-- ===================== SOLUCAO ===================== -->
+  <div class="page" id="page-solucao">
+    <div class="section-title">Apresentação da Solução</div>
+    <div class="section-sub">Só apresente depois do SPIN. A sequência é sempre: Problema → Solução → Prova → Próximo passo.</div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">💬</div> Apresentação Completa — Fala Modelo</div>
+      <div class="fala">
+        "Então olha o que a Monet tem pra você.<br><br>
+        <strong>Primeiro: a Clover Flex.</strong> É a maquininha da Fiserv — a maior processadora de pagamentos do mundo. Ela tem 4G, Wi-Fi e chip próprio. Não depende do seu sinal, não trava, não te deixa na mão num sábado cheio. Você nunca mais perde venda por falha técnica.<br><br>
+        <strong>Segundo: a conta digital Monet.</strong> Junto com a máquina, você abre sua conta. Aí você tem gateway de pagamento, link pra vender online, e controle de tudo no app. Recebe no prazo certo, sem surpresa.<br><br>
+        <strong>Terceiro — e esse é o que muda o jogo:</strong> depois que você começa a movimentar, a gente libera uma linha de crédito pra você comprar mercadoria. Você paga o fornecedor à vista — e consegue o desconto de quem paga à vista — mas quita com a Monet no mesmo prazo que você já pagaria o fornecedor de qualquer jeito. O dinheiro girou, o desconto ficou com você.<br><br>
+        Não é maquininha. É um sistema financeiro completo pro seu negócio."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">🎯</div> Narrativas por Perfil DISC</div>
+
+      <div class="fala">
+        <div class="fala-label">Para D — Foco em resultado e controle</div>
+        "Em resumo: você para de perder desconto do fornecedor, sua máquina nunca trava e você tem crédito na hora que precisar. Tudo isso sem burocracia."
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Para I — Foco em inovação e status</div>
+        "Você vai ser um dos primeiros aqui no Moda Center com essa estrutura completa. Maquininha da maior processadora do mundo, conta digital, e crédito pra turbinar suas compras. É o pacote que os grandes lojistas têm."
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Para S — Foco em segurança e continuidade</div>
+        "A ideia não é te fazer mudar tudo de uma vez. Você começa com a conta e a máquina, usa com calma, e quando você vir que funciona, a gente te apresenta o crédito. Tudo no seu tempo, e eu fico aqui pra te ajudar em cada passo."
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Para C — Foco em dados e lógica</div>
+        "Deixa eu te mostrar a simulação: se você compra R$30 mil por mês do fornecedor e consegue 8% de desconto pagando à vista com o crédito da Monet, são R$2.400 por mês de margem extra. A taxa do crédito fica bem abaixo disso. Quer que eu calcule pro seu volume?"
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PRAZO ===================== -->
+  <div class="page" id="page-prazo">
+    <div class="section-title">Narrativa 30/60/90 vs Antecipação</div>
+    <div class="section-sub">O lojista pede D+1 por medo — ele quer fluxo agora. Mas está pagando caro por isso e vai ficar sem dinheiro depois. Sua missão é mostrar a matemática real.</div>
+
+    <div class="alert warning">
+      <div class="alert-icon">⚠️</div>
+      <div><strong>A armadilha do D+1:</strong> O lojista que antecipa tudo recebe hoje e fica sem dinheiro no fim do mês, porque o cliente já pagou e não vai pagar de novo. O crédito Monet substitui esse caixa com custo menor e sem esvaziar o fluxo futuro.</div>
+    </div>
+
+    <!-- Apresentação proativa -->
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">→</div>
+        <div>
+          <div class="phase-title">Apresentação Proativa (antes da objeção)</div>
+          <div class="phase-goal">Use durante a apresentação da solução — não espere ele pedir D+1</div>
+        </div>
+      </div>
+      <div class="fala">
+        "Antes de você me perguntar sobre recebimento, deixa eu te mostrar uma coisa que a maioria dos lojistas não percebe.<br><br>
+        Você pode configurar pra receber tudo no D+1 — e a gente faz isso se você quiser. Mas eu quero te mostrar a matemática antes:<br><br>
+        Imagina que você vende R$50 mil em parcelas no mês. Se você antecipa tudo no D+1 pagando 2,5% de taxa, você paga R$1.250 pra ter esse dinheiro agora. E no próximo mês, quando essas parcelas venceriam, você não recebe nada — porque já recebeu tudo antes.<br><br>
+        Agora imagina que você recebe no prazo normal — 30, 60, 90 dias — e usa a linha de crédito da Monet pra comprar mercadoria enquanto o dinheiro não chegou. Você paga uma taxa menor, compra do fornecedor com desconto à vista, e ainda tem o dinheiro chegando no futuro pra cobrir o mês seguinte.<br><br>
+        É a diferença entre comer tudo hoje e passar fome amanhã, ou comer certo todo dia."
+      </div>
+    </div>
+
+    <!-- Tabela comparativa -->
+    <div class="card">
+      <div class="card-title"><div class="icon">📊</div> Comparativo Visual — Use na conversa</div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Critério</th>
+            <th>D+1 com antecipação</th>
+            <th>30/60/90 + crédito Monet</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-label">Custo mensal</td>
+            <td class="col-bad">Taxa de antecipação alta (1,5–3% ao mês sobre tudo)</td>
+            <td class="col-good">Taxa de crédito menor, só sobre o que usar</td>
+          </tr>
+          <tr>
+            <td class="col-label">Fluxo futuro</td>
+            <td class="col-bad">Vazio — você já recebeu tudo antecipado</td>
+            <td class="col-good">Previsível — dinheiro chega no prazo, todo mês</td>
+          </tr>
+          <tr>
+            <td class="col-label">Compra de mercadoria</td>
+            <td class="col-bad">Parcelado com fornecedor = sem desconto</td>
+            <td class="col-good">À vista com crédito Monet = desconto de 5–10%</td>
+          </tr>
+          <tr>
+            <td class="col-label">Controle do caixa</td>
+            <td class="col-bad">Depende de antecipar todo mês pra sobreviver</td>
+            <td class="col-good">Independente — crédito no momento certo</td>
+          </tr>
+          <tr>
+            <td class="col-label">Risco</td>
+            <td class="col-bad"><span class="pill pill-bad">Alto</span> Qualquer mês sem venda = sem caixa</td>
+            <td class="col-good"><span class="pill pill-good">Baixo</span> Fluxo protegido e previsível</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Contorno de objeção -->
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">🛡️</div>
+        <div>
+          <div class="phase-title">Contorno da Objeção "Quero receber tudo no D+1"</div>
+          <div class="phase-goal">Quando ele pede antecipação total — não bata de frente</div>
+        </div>
+      </div>
+
+      <div class="objection">
+        <div class="obj-trigger">❌ "Eu preciso receber tudo no D+1. Não posso esperar 30, 60 dias."</div>
+        <div class="obj-response">
+          "Entendo. E a gente consegue fazer isso se você quiser. Mas antes de decidir, me deixa te fazer uma pergunta: <strong>quanto você paga de taxa de antecipação hoje, por mês?</strong><br><br>
+          [Deixa responder]<br><br>
+          Agora imagina usar esse mesmo valor pra ter uma linha de crédito que te dá capital pra comprar do fornecedor à vista, com desconto, e você ainda recebe as parcelas no prazo certo no futuro.<br><br>
+          A diferença é que no D+1 você está sempre correndo atrás do dinheiro. Com o prazo certo e o crédito da Monet, o dinheiro fica chegando pra você de forma contínua — e você para de pagar pra antecipar o que já é seu."
+        </div>
+      </div>
+
+      <div class="instrucao">
+        <strong>Técnica:</strong> Nunca diga que o D+1 é errado. Valide a necessidade dele de ter liquidez. Depois mostre que existe um caminho mais barato e mais inteligente pra resolver o mesmo problema.
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Variação com matemática na hora</div>
+        "Faz uma conta rápida comigo. Você vende quanto por mês em cartão?<br>
+        [Ele responde, digamos R$40 mil]<br>
+        A taxa de antecipação que você paga — vamos estimar 2% — são R$800 por mês. Todo mês. Só pra ter o que já é seu um pouco mais cedo.<br>
+        Com esses R$800 você poderia ter crédito da Monet pra comprar R$40 mil em mercadoria com 7% de desconto à vista. São R$2.800 de desconto pra você. Compensa mais guardar os R$800 ou ganhar R$2.800?"
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== OBJEÇÕES ===================== -->
+  <div class="page" id="page-objecoes">
+    <div class="section-title">Mapa de Objeções</div>
+    <div class="section-sub">Objeção não é rejeição — é pedido de mais informação. Nunca bata de frente. Valide, pergunte, redirecione.</div>
+
+    <div class="alert info">
+      <div class="alert-icon">💡</div>
+      <div><strong>Método Carlos Bursh:</strong> Toda objeção tem uma crença por baixo. Descubra a crença antes de contornar. "Já tenho máquina" pode ser "não quero mudar o que funciona" ou "não confio em novidade". A resposta pra cada um é diferente.</div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-trigger">❌ "Já tenho máquina."</div>
+      <div class="obj-response">
+        "Que bom — quer dizer que você já aceita cartão. Minha pergunta é: a máquina que você tem hoje te dá <strong>linha de crédito pra comprar mercadoria</strong>? Tem <strong>conta digital com link de pagamento</strong>? Te dá <strong>4G próprio sem depender do Wi-Fi da loja</strong>?<br><br>
+        Se não, você tem máquina — mas não tem sistema financeiro. São coisas diferentes."
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-trigger">❌ "A taxa de vocês é cara."</div>
+      <div class="obj-response">
+        "Faz sentido querer a menor taxa. Mas deixa eu te perguntar: <strong>se a taxa for ligeiramente diferente, mas você conseguir comprar do fornecedor à vista com 8% de desconto</strong>, o que cobre mais: a diferença de taxa ou o desconto que você ganha?<br><br>
+        O que custa mais caro — a taxa da maquininha ou perder desconto em toda compra que você faz por mês?"
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-trigger">❌ "Não tenho tempo agora."</div>
+      <div class="obj-response">
+        "Sem problema. Posso voltar amanhã às 8h antes do movimento — são 10 minutos só. Ou, se preferir, deixo meu contato e você me chama quando tiver melhor. Qual você prefere?"
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-trigger">❌ "Vou pensar."</div>
+      <div class="obj-response">
+        "Claro. Mas me ajuda: <strong>o que você precisaria entender melhor pra tomar essa decisão?</strong> Tem alguma coisa que ficou sem resposta?<br><br>
+        [Deixa ele responder — a resposta real vai aparecer aqui]"
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-trigger">❌ "Não quero crédito, não gosto de dívida."</div>
+      <div class="obj-response">
+        "Eu respeito muito isso. E na verdade faz sentido não querer dívida.<br><br>
+        Mas deixa eu te mostrar a diferença: crédito de consumo é dívida — você pega dinheiro pra gastar em coisa que não gera retorno. O que a Monet oferece é <strong>capital de giro produtivo</strong> — você usa pra comprar mercadoria, vende, e paga com o que recebeu. O dinheiro trabalhou, o lucro ficou com você. Isso não é dívida, é alavancagem."
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-trigger">❌ "Deixa pra depois, tô sem tempo de mudar nada agora."</div>
+      <div class="obj-response">
+        "Entendo — a rotina do Moda Center não para. Mas me deixa te perguntar uma coisa: <strong>se você deixar pra depois, o que muda?</strong> Você continua pagando antecipação, perdendo desconto do fornecedor, arriscando com a máquina. O problema não some esperando.<br><br>
+        O que eu preciso de você é 10 minutos. Pode ser amanhã cedo, pode ser via WhatsApp agora. Você decide a forma."
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FECHAMENTO ===================== -->
+  <div class="page" id="page-fechamento">
+    <div class="section-title">Fechamento</div>
+    <div class="section-sub">Nunca pergunte "você quer?". Sempre avance para o próximo passo. Quem fecha com pergunta aberta, perde para o "vou pensar".</div>
+
+    <div class="alert success">
+      <div class="alert-icon">✅</div>
+      <div><strong>Princípio Flávio Augusto:</strong> A venda não acontece no fechamento — ela foi construída no diagnóstico. Se você fez o SPIN certo, o fechamento é apenas formalizar o que o lojista já decidiu na cabeça.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title"><div class="icon">⚡</div> Fechamento Direto</div>
+        <div class="fala">"Bora abrir sua conta agora? É digital, não precisa de papel, você já sai daqui com tudo ativo."</div>
+        <div class="instrucao"><strong>Use com:</strong> Perfil D (depois de apresentação curta e objetiva)</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><div class="icon">🔀</div> Fechamento por Alternativa</div>
+        <div class="fala">"Você prefere que a gente já ativa a conta hoje ou quer primeiro ver a máquina funcionando aqui na loja alguns dias?"</div>
+        <div class="instrucao"><strong>Use com:</strong> Perfil S e I (tira o "sim ou não" da equação)</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><div class="icon">⏱️</div> Fechamento por Urgência Legítima</div>
+        <div class="fala">"Aqui no Moda Center a gente está ativando os lojistas por região. Os que entram primeiro ficam na frente da fila de crédito. Faz sentido a gente resolver isso hoje?"</div>
+        <div class="instrucao"><strong>Use com:</strong> Perfil I (ama ser o primeiro) e D (não quer perder vantagem)</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><div class="icon">📋</div> Fechamento por Próxima Ação</div>
+        <div class="fala">"Vou te mandar a simulação personalizada ainda hoje. Na quinta de manhã eu passo aqui pra tirar qualquer dúvida e se fizer sentido, a gente ativa na hora."</div>
+        <div class="instrucao"><strong>Use com:</strong> Perfil C (nunca decide na hora — mas cumpre o que combina)</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:8px;">
+      <div class="card-title"><div class="icon">🛟</div> Se ele ainda hesitar — Técnica do Custo da Inação</div>
+      <div class="fala">"Me faz uma conta rápida: quanto você perde por mês em desconto do fornecedor por não pagar à vista? E quanto você paga de antecipação? Some esses dois números. Esse é o custo de não ter a Monet. Por quanto tempo você quer continuar pagando isso?"</div>
+    </div>
+  </div>
+
+  <!-- ===================== ONBOARDING ===================== -->
+  <div class="page" id="page-onboarding">
+    <div class="section-title">Onboarding Completo</div>
+    <div class="section-sub">Da primeira visita até o lojista ativo e encantado. Cada etapa tem um objetivo claro — não pule nenhuma.</div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">00</div>
+        <div>
+          <div class="phase-title">Primeira Visita — Antes de Vender</div>
+          <div class="phase-goal">Objetivo: Criar relacionamento, mapear situação, definir próximo passo</div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">Minuto 0–2</div>
+          <div class="timeline-title">Apresentação + Leitura DISC</div>
+          <div class="timeline-desc">Se apresente, observe o ambiente, identifique o perfil. Adapte o tom antes de continuar.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Minuto 2–8</div>
+          <div class="timeline-title">SPIN Diagnóstico</div>
+          <div class="timeline-desc">Perguntas de Situação, Problema e Implicação. Não apresente nada ainda.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Minuto 8–15</div>
+          <div class="timeline-title">Apresentação Adaptada</div>
+          <div class="timeline-desc">Apresente a solução conectada à dor que ele revelou. Use a narrativa do perfil certo.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Minuto 15–20</div>
+          <div class="timeline-title">Fechamento ou Próximo Passo</div>
+          <div class="timeline-desc">Se fechar: ative na hora. Se não: defina data e hora específica para retorno. Nunca saia sem compromisso.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">01</div>
+        <div>
+          <div class="phase-title">Ativação da Conta Digital</div>
+          <div class="phase-goal">Objetivo: Lojista com conta ativa e primeiro acesso funcionando antes de você sair</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Abra o app junto com ele</div>
+          <p>Não mande ele fazer sozinho depois. Baixe o app na frente dele. Cada passo que ele faz sem você é uma chance de travar e desistir.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Cadastro — tenha os documentos na mão</div>
+          <p>Solicite antes: CPF ou CNPJ, documento com foto, comprovante de endereço. Se ele não tiver, marque pra ativar num momento específico — não deixe em aberto.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Faça a primeira transação na hora</div>
+          <p>Peça que ele envie R$1,00 via Pix pra você ou pra ele mesmo. Isso cria a memória de uso — ele já sabe que funciona. Lojista que faz a primeira transação na hora tem taxa de ativação real muito maior.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Mostre o dashboard da conta</div>
+          <p>Explique onde ver saldo, extrato e recebíveis futuros. Ele precisa entender o que está olhando. Confusão no app = abandono silencioso.</p>
+        </div>
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Fala durante ativação</div>
+        "Deixa eu ficar aqui contigo nessa parte — é rápido e quero ter certeza que você já sai daqui usando. Depois você faz de olho fechado, mas a primeira vez é bom fazer junto."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">02</div>
+        <div>
+          <div class="phase-title">Treinamento da Clover Flex</div>
+          <div class="phase-goal">Objetivo: Lojista e equipe sabem usar a máquina com confiança</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Mostre os 3 modos de pagamento</div>
+          <p>Débito, crédito (1x a 12x) e Pix pelo app. Faça ele apertar os botões — aprender fazendo, não ouvindo.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Mostre o diferencial do 4G/chip próprio</div>
+          <p>Pegue o celular dele e mostre que a máquina funciona com Wi-Fi desligado. Esse é um dos maiores medos — travar no sábado. Mata a objeção mostrando, não falando.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Treine a equipe também</div>
+          <p>Se tem funcionário no caixa, treine ele na presença do lojista. Atendente que não sabe usar é máquina que não roda.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Deixe o contato de suporte visível</div>
+          <p>Cole um cartão ou deixe o número salvo no celular dele. "Qualquer dúvida, me chama direto. Mas também tem o suporte 24h da Monet."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-header">
+        <div class="phase-num">03</div>
+        <div>
+          <div class="phase-title">Primeiro Contato Pós-Venda</div>
+          <div class="phase-goal">Objetivo: Encantamento, prevenção de churn e sinalização do próximo passo (crédito)</div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">24h após ativação</div>
+          <div class="timeline-title">Mensagem de verificação (WhatsApp)</div>
+          <div class="timeline-desc">
+            <div class="fala" style="margin-top:8px;">"Oi [nome]! Tudo certo com a máquina e a conta? Alguma dúvida até agora? Qualquer coisa me chama."</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Dia 7</div>
+          <div class="timeline-title">Visita de acompanhamento</div>
+          <div class="timeline-desc">Vá pessoalmente. Pergunte como está sendo, resolva qualquer atrito. Esse é o momento de consolidar o relacionamento e plantar a semente da linha de crédito.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Dia 14–21</div>
+          <div class="timeline-title">Apresentação da linha de crédito</div>
+          <div class="timeline-desc">Só apresente depois que o lojista já está movimentando. A oferta de crédito no momento certo é a recompensa por estar usando.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Mensal</div>
+          <div class="timeline-title">Check-in de TPV e satisfação</div>
+          <div class="timeline-desc">Monitore o volume de vendas. Queda de TPV é sinal de problema antes de virar cancelamento.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== CRÉDITO ===================== -->
+  <div class="page" id="page-credito">
+    <div class="section-title">Apresentação da Linha de Crédito</div>
+    <div class="section-sub">Essa conversa acontece depois que o lojista está ativo e confiante. Nunca no primeiro contato — o crédito é a recompensa por estar usando.</div>
+
+    <div class="alert success">
+      <div class="alert-icon">✅</div>
+      <div><strong>Posicionamento correto:</strong> Nunca chame de empréstimo. É <strong>capital de giro produtivo</strong> ou <strong>rotação de capital</strong>. Quem empresta dinheiro pra gastar faz dívida. Quem usa capital pra comprar mercadoria e vender com margem — está alavancando o negócio.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">💬</div> Como Apresentar o Crédito (Fala Modelo)</div>
+      <div class="fala">
+        "[Nome], você já tá usando a Monet há [X] dias e tudo certo. Agora quero te mostrar o que acontece quando você começa a movimentar mais.<br><br>
+        A gente libera uma linha de crédito pra você. Mas não é pra você comprar roupa, viajar, nada disso. É pra um objetivo específico: você compra matéria-prima ou mercadoria do seu fornecedor pagando à vista — e consegue o desconto de quem paga à vista.<br><br>
+        Aí você paga a Monet no mesmo prazo que pagaria o fornecedor parcelado de qualquer jeito. Só que em vez de pagar o fornecedor parcelado sem desconto, você pagou à vista com desconto, e nos mesmos dias você paga a gente.<br><br>
+        O dinheiro girou, o desconto ficou no seu bolso."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">🧮</div> Faça a Simulação na Frente Dele</div>
+      <div class="fala">
+        <div class="fala-label">Exemplo de simulação ao vivo</div>
+        "Você compra quanto por mês do seu fornecedor?<br>
+        [Ele responde: R$25.000]<br>
+        Pagando parcelado, você paga o quê — preço cheio?<br>
+        [Ele confirma]<br>
+        Quanto você acha que seria o desconto se pagasse à vista?<br>
+        [Ele chuta: 7%, 10%]<br>
+        Então: 8% de R$25 mil são R$2.000 por mês de desconto que você não está pegando. Em 6 meses são R$12.000.<br>
+        A taxa do nosso crédito fica bem abaixo disso. Você quer continuar deixando esses R$2.000 na mesa todo mês?"
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">🛡️</div> Objeções Específicas do Crédito</div>
+
+      <div class="objection">
+        <div class="obj-trigger">❌ "Não quero me endividar."</div>
+        <div class="obj-response">
+          "Faz sentido não querer dívida de consumo. Mas isso aqui é diferente: <strong>você usa o dinheiro pra comprar mercadoria que você já ia comprar de qualquer jeito</strong>. A diferença é que agora você compra com desconto. O pagamento pra Monet sai da venda que você já fez. O lucro extra fica com você."
+        </div>
+      </div>
+
+      <div class="objection">
+        <div class="obj-trigger">❌ "Como eu sei que vou conseguir pagar?"</div>
+        <div class="obj-response">
+          "Boa pergunta. Por isso a linha de crédito é calibrada no seu volume de vendas — a gente não oferece mais do que você já movimenta. É proporcional ao que você já faz. Se você vende X, o crédito é um percentual disso. Nada fora do que o seu negócio já aguenta."
+        </div>
+      </div>
+
+      <div class="objection">
+        <div class="obj-trigger">❌ "E se eu não tiver vendas suficientes pra pagar?"</div>
+        <div class="obj-response">
+          "Essa é a diferença do capital de giro produtivo: você usou o dinheiro pra comprar mercadoria — que você vai vender. O pagamento sai da venda. O ciclo fecha. É diferente de pegar dinheiro sem saber como vai pagar."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">💵</div> A Conta dos R$ 10 Mil — Pitch de 60 Segundos</div>
+
+      <div class="alert info">
+        <div class="alert-icon">🧠</div>
+        <div><strong>Por que essa conta funciona:</strong> a taxa da maquininha incide sobre a <strong>VENDA</strong>. O desconto do fornecedor incide sobre a <strong>COMPRA</strong>. E a compra é ~70% da venda. Então mesmo pagando taxa um pouco maior, o desconto sempre ganha — porque atua no bloco maior do custo.</div>
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Pitch completo — fale devagar, deixe a conta assentar</div>
+        "Deixa eu te fazer uma conta de padaria.<br><br>
+        A cada <strong>R$ 100 mil</strong> que você compra do fornecedor, pagando à vista você ganha um desconto — vamos supor 14%: <strong>R$ 14 mil</strong>.<br><br>
+        O crédito da Monet custa em média 4%: <strong>R$ 4 mil</strong>.<br><br>
+        Sobram <strong>R$ 10 mil no seu bolso a cada R$ 100 mil comprados</strong>. Sem vender uma peça a mais, sem contratar ninguém — e sem pagar um real a mais de imposto, porque no Simples o imposto é sobre a venda, não sobre esse ganho."
+      </div>
+
+      <div class="objection" style="margin-top:16px;">
+        <div class="obj-trigger">❌ "Mas a taxa da maquininha de vocês é mais cara."</div>
+        <div class="obj-response">
+          "Boa pergunta. A taxa é sobre o que você <strong>vende</strong>. O desconto é sobre o que você <strong>compra</strong>. E como a compra é 70% da sua venda... mesmo se minha taxa fosse 2 pontos mais cara, você ganha R$ 7 e paga R$ 2, a cada R$ 100.<br><br>
+          <strong>Você trocaria R$ 2 por R$ 7 todo mês?</strong><br><br>
+          [Pergunta retórica — deixa ele responder. Ele mesmo contorna a própria objeção.]"
+        </div>
+      </div>
+
+      <table class="compare-table" style="margin-top:16px;">
+        <thead>
+          <tr>
+            <th>A cada R$ 100 de venda</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-label">Compra do fornecedor (CMV ~70%)</td>
+            <td>R$ 70,00</td>
+          </tr>
+          <tr>
+            <td class="col-label">Ganho líquido com desconto (14% − 4% Monet = 10% sobre a compra)</td>
+            <td class="col-good">+ R$ 7,00</td>
+          </tr>
+          <tr>
+            <td class="col-label">Taxa de maquininha 2 pontos mais cara (sobre a venda)</td>
+            <td class="col-bad">− R$ 2,00</td>
+          </tr>
+          <tr>
+            <td class="col-label"><strong>Saldo no bolso do lojista</strong></td>
+            <td class="col-good"><strong>+ R$ 5,00 → +5 pontos de lucro líquido</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="instrucao">
+        <strong>Tradução pro lojista:</strong> se o lucro líquido dele é 14%, vai pra ~19%. Isso é <strong>+35% de lucro</strong> sem vender uma peça a mais. Esse é o número que fecha a venda.
+      </div>
+
+      <div class="alert warning">
+        <div class="alert-icon">⚠️</div>
+        <div><strong>Regra do consultor:</strong> os 14% de desconto são uma <strong>premissa, não uma promessa</strong>. Sempre pergunte ao lojista qual desconto <strong>ele</strong> consegue à vista com o fornecedor dele, e refaça a conta com o número real. A conta com o número do próprio cliente convence 10x mais — e protege você de prometer um ganho que depende do fornecedor dele, não da Monet.</div>
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Como levantar o número real (antes do pitch)</div>
+        "Me tira uma dúvida: quando você paga o fornecedor à vista, quanto de desconto você consegue? [Ele responde] E você compra quanto por mês, mais ou menos? [Ele responde] Deixa eu te mostrar uma conta com os seus números..."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">📈</div> Alavancagem Operacional — Argumento para Lojista Avançado</div>
+
+      <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:14px;">Use com lojista que entende de número (perfil C, ou D com visão de gestão). É o argumento que conecta o crédito ao crescimento do negócio inteiro.</p>
+
+      <div class="fala">
+        <div class="fala-label">Conceito em uma frase</div>
+        "Suas despesas fixas não crescem quando você vende mais. Então cada venda acima do ponto atual entrega quase tudo direto pro lucro. Vender o dobro não dobra o lucro — <strong>multiplica</strong>."
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Estrutura (exemplo)</th>
+            <th>Venda atual: R$ 100</th>
+            <th>Venda dobrada: R$ 200</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-label">Margem de contribuição (23,5%)</td>
+            <td>R$ 23,50</td>
+            <td>R$ 47,00</td>
+          </tr>
+          <tr>
+            <td class="col-label">Despesas fixas</td>
+            <td>R$ 9,50</td>
+            <td>R$ 9,50 <span class="pill pill-good">não cresce</span></td>
+          </tr>
+          <tr>
+            <td class="col-label"><strong>Lucro</strong></td>
+            <td><strong>R$ 14,00</strong></td>
+            <td class="col-good"><strong>R$ 37,50 (×2,68)</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="instrucao">
+        <strong>A conexão com a Monet:</strong> o desconto do fornecedor via crédito reduz o CMV — o maior bloco de custo (70%). CMV menor = margem de contribuição maior = alavancagem maior. Ou seja: <strong>eficiência financeira e eficiência comercial se multiplicam</strong>. O lojista que usa o crédito E vende mais cresce em duas frentes ao mesmo tempo.
+      </div>
+
+      <div class="fala">
+        <div class="fala-label">Fala de fechamento com esse argumento</div>
+        "Todo mundo aqui no Moda Center está tentando vender mais. Poucos estão atacando o custo da compra — que é 70% do negócio. Quem faz os dois ao mesmo tempo cresce em dobro enquanto o vizinho cresce simples. É isso que a Monet coloca na sua mão."
+      </div>
+    </div>
+
+    <div class="pocket-card">
+      <div class="card-title" style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);">📋 Card de Bolso — Linha de Crédito</div>
+      <ul class="checklist">
+        <li>Nunca fale "empréstimo" — fale "capital de giro" ou "rotação de capital"</li>
+        <li>Só apresente depois do lojista estar ativo (dia 7+)</li>
+        <li>Sempre faça a simulação com o número real dele — o desconto de 14% é premissa, não promessa</li>
+        <li>Lembre da lógica: taxa incide na VENDA, desconto incide na COMPRA (70% da venda) — o desconto sempre ganha</li>
+        <li>Conecte ao desconto do fornecedor — é onde o lucro aparece</li>
+        <li>O prazo de pagamento é o mesmo que ele já pagaria o fornecedor parcelado</li>
+        <li>Se ele recusar, plante a semente: "quando você quiser ver a simulação, me avisa"</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
